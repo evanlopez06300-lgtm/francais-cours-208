@@ -1,0 +1,1217 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cours de Français — Littérature & Poésie</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@300;400;500;600;700&family=New+York:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a0f;
+    --surface: rgba(255,255,255,0.06);
+    --surface-hover: rgba(255,255,255,0.10);
+    --glass: rgba(255,255,255,0.04);
+    --border: rgba(255,255,255,0.10);
+    --border-strong: rgba(255,255,255,0.18);
+    --text: #f0f0f5;
+    --text-secondary: rgba(240,240,245,0.55);
+    --text-tertiary: rgba(240,240,245,0.35);
+    --accent1: #6e8efb;
+    --accent2: #a777e3;
+    --accent3: #f4a261;
+    --accent4: #2dd4bf;
+    --accent5: #f87171;
+    --glow1: rgba(110,142,251,0.25);
+    --glow2: rgba(167,119,227,0.20);
+    --radius-sm: 12px;
+    --radius-md: 18px;
+    --radius-lg: 26px;
+    --radius-xl: 36px;
+    --font-display: 'New York', 'Georgia', serif;
+    --font-body: -apple-system, 'SF Pro Text', 'Helvetica Neue', sans-serif;
+    --sidebar-w: 280px;
+    --transition: cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-body);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ─── Ambient background ─── */
+  .bg-orbs {
+    position: fixed; inset: 0; z-index: 0; pointer-events: none;
+    overflow: hidden;
+  }
+  .orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(100px);
+    opacity: 0.18;
+    animation: drift 20s ease-in-out infinite alternate;
+  }
+  .orb-1 { width:600px; height:600px; background:var(--accent1); top:-100px; left:-150px; animation-duration:22s; }
+  .orb-2 { width:500px; height:500px; background:var(--accent2); top:40%; right:-100px; animation-duration:18s; animation-delay:-6s; }
+  .orb-3 { width:400px; height:400px; background:var(--accent4); bottom:-80px; left:30%; animation-duration:25s; animation-delay:-12s; }
+  @keyframes drift {
+    from { transform: translate(0,0) scale(1); }
+    to   { transform: translate(40px,30px) scale(1.08); }
+  }
+
+  /* ─── Layout ─── */
+  .app { display: flex; min-height: 100vh; position: relative; z-index: 1; }
+
+  /* ─── Sidebar ─── */
+  .sidebar {
+    width: var(--sidebar-w);
+    flex-shrink: 0;
+    position: fixed; top:0; left:0; bottom:0;
+    background: rgba(10,10,18,0.75);
+    backdrop-filter: blur(40px) saturate(180%);
+    -webkit-backdrop-filter: blur(40px) saturate(180%);
+    border-right: 1px solid var(--border);
+    display: flex; flex-direction: column;
+    padding: 28px 0 20px;
+    z-index: 100;
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+
+  .sidebar-logo {
+    padding: 0 22px 28px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 16px;
+  }
+  .sidebar-logo .logo-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: linear-gradient(135deg,var(--accent1),var(--accent2));
+    padding: 6px 12px; border-radius: 10px;
+    font-size: 11px; font-weight: 600; letter-spacing: 0.06em;
+    text-transform: uppercase; margin-bottom: 10px;
+  }
+  .sidebar-logo h1 {
+    font-family: var(--font-display);
+    font-size: 18px; font-weight: 500; line-height: 1.3;
+    color: var(--text);
+  }
+  .sidebar-logo p {
+    font-size: 11px; color: var(--text-secondary);
+    margin-top: 4px; letter-spacing: 0.03em;
+  }
+
+  .nav-section { padding: 6px 14px; margin-bottom: 4px; }
+  .nav-label {
+    font-size: 10px; font-weight: 600; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--text-tertiary);
+    padding: 0 8px; margin-bottom: 4px;
+  }
+  .nav-item {
+    display: flex; align-items: center; gap: 10px;
+    padding: 9px 10px; border-radius: 12px;
+    font-size: 13px; color: var(--text-secondary);
+    cursor: pointer; text-decoration: none;
+    transition: all 0.2s ease;
+    border: 1px solid transparent;
+  }
+  .nav-item:hover {
+    background: var(--surface-hover);
+    color: var(--text);
+    border-color: var(--border);
+  }
+  .nav-item.active {
+    background: linear-gradient(135deg,rgba(110,142,251,0.18),rgba(167,119,227,0.12));
+    color: var(--text);
+    border-color: rgba(110,142,251,0.30);
+  }
+  .nav-item .nav-icon {
+    width: 28px; height: 28px; border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px; flex-shrink: 0;
+  }
+  .nav-item.active .nav-icon { background: linear-gradient(135deg,var(--accent1),var(--accent2)); }
+  .nav-sub {
+    padding-left: 48px; font-size: 12px;
+    color: var(--text-tertiary); display: flex; flex-direction: column; gap: 2px;
+  }
+  .nav-sub a {
+    padding: 5px 8px; border-radius: 8px;
+    color: var(--text-tertiary); text-decoration: none;
+    transition: all 0.15s;
+  }
+  .nav-sub a:hover { color: var(--text-secondary); background: var(--surface); }
+
+  /* ─── Main ─── */
+  .main {
+    margin-left: var(--sidebar-w);
+    flex: 1;
+    padding: 0 0 80px;
+    min-width: 0;
+  }
+
+  /* ─── Hero ─── */
+  .hero {
+    padding: 64px 60px 56px;
+    position: relative; overflow: hidden;
+    border-bottom: 1px solid var(--border);
+  }
+  .hero-tag {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: var(--surface); border: 1px solid var(--border);
+    padding: 5px 14px; border-radius: 100px;
+    font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase;
+    color: var(--text-secondary); margin-bottom: 20px;
+  }
+  .hero-tag::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--accent4); display: inline-block; }
+  .hero h1 {
+    font-family: var(--font-display);
+    font-size: clamp(36px, 5vw, 56px);
+    font-weight: 400; line-height: 1.1;
+    background: linear-gradient(135deg, #ffffff 0%, rgba(255,255,255,0.7) 100%);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
+    max-width: 700px; margin-bottom: 16px;
+  }
+  .hero p {
+    font-size: 15px; color: var(--text-secondary);
+    max-width: 560px; line-height: 1.7;
+  }
+  .hero-stats {
+    display: flex; gap: 24px; margin-top: 36px; flex-wrap: wrap;
+  }
+  .stat {
+    background: var(--surface); border: 1px solid var(--border);
+    backdrop-filter: blur(20px); border-radius: var(--radius-md);
+    padding: 14px 20px;
+  }
+  .stat-num { font-size: 22px; font-weight: 600; color: var(--text); }
+  .stat-label { font-size: 11px; color: var(--text-secondary); margin-top: 2px; letter-spacing: 0.04em; }
+
+  /* ─── Content area ─── */
+  .content { padding: 40px 60px; }
+
+  /* ─── Section cards ─── */
+  .section-card {
+    background: var(--glass);
+    border: 1px solid var(--border);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-radius: var(--radius-xl);
+    margin-bottom: 28px;
+    overflow: hidden;
+    transition: border-color 0.3s ease;
+  }
+  .section-card:hover { border-color: var(--border-strong); }
+
+  .section-header {
+    padding: 28px 32px 24px;
+    border-bottom: 1px solid var(--border);
+    display: flex; align-items: flex-start; gap: 16px;
+    cursor: pointer;
+    user-select: none;
+  }
+  .section-num-badge {
+    width: 40px; height: 40px; border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px; font-weight: 700; flex-shrink: 0;
+    font-family: var(--font-display);
+  }
+  .section-header-text { flex: 1; }
+  .section-header h2 {
+    font-family: var(--font-display);
+    font-size: 20px; font-weight: 500; color: var(--text);
+    line-height: 1.3; margin-bottom: 4px;
+  }
+  .section-header .meta {
+    font-size: 12px; color: var(--text-secondary); letter-spacing: 0.03em;
+  }
+  .section-chevron {
+    font-size: 18px; color: var(--text-tertiary);
+    transition: transform 0.3s var(--transition);
+    margin-top: 8px;
+  }
+  .section-card.open .section-chevron { transform: rotate(180deg); }
+
+  .section-body {
+    max-height: 0; overflow: hidden;
+    transition: max-height 0.5s cubic-bezier(0.4,0,0.2,1);
+  }
+  .section-card.open .section-body { max-height: 9999px; }
+  .section-body-inner { padding: 28px 32px 32px; }
+
+  /* ─── Subsections ─── */
+  .subsection { margin-bottom: 28px; }
+  .subsection:last-child { margin-bottom: 0; }
+  .subsection h3 {
+    font-family: var(--font-display);
+    font-size: 16px; font-weight: 500; color: var(--text);
+    margin-bottom: 12px; display: flex; align-items: center; gap: 8px;
+  }
+  .subsection h3::before {
+    content: '';
+    width: 3px; height: 18px; border-radius: 2px;
+    background: currentColor; opacity: 0.5; flex-shrink: 0;
+  }
+  .subsection h4 {
+    font-size: 13px; font-weight: 600;
+    color: var(--text-secondary); letter-spacing: 0.04em;
+    margin: 16px 0 8px;
+    text-transform: uppercase; font-family: var(--font-body);
+  }
+  .subsection p, .body-text {
+    font-size: 14px; color: var(--text-secondary);
+    line-height: 1.8; margin-bottom: 10px;
+  }
+  .subsection p:last-child { margin-bottom: 0; }
+
+  /* ─── Pills / Tags ─── */
+  .tag-row { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0; }
+  .tag {
+    padding: 4px 12px; border-radius: 100px;
+    font-size: 11px; font-weight: 500; letter-spacing: 0.04em;
+    border: 1px solid; cursor: default;
+  }
+  .tag-blue  { background: rgba(110,142,251,0.12); color:#6e8efb; border-color:rgba(110,142,251,0.30); }
+  .tag-purple{ background: rgba(167,119,227,0.12); color:#a777e3; border-color:rgba(167,119,227,0.30); }
+  .tag-teal  { background: rgba(45,212,191,0.12);  color:#2dd4bf; border-color:rgba(45,212,191,0.30); }
+  .tag-orange{ background: rgba(244,162,97,0.12);  color:#f4a261; border-color:rgba(244,162,97,0.30); }
+  .tag-red   { background: rgba(248,113,113,0.12); color:#f87171; border-color:rgba(248,113,113,0.30); }
+
+  /* ─── Info blocks ─── */
+  .info-block {
+    border-radius: var(--radius-md); padding: 16px 20px;
+    border-left: 3px solid; margin: 14px 0;
+  }
+  .info-block.blue  { background:rgba(110,142,251,0.08); border-color:var(--accent1); }
+  .info-block.purple{ background:rgba(167,119,227,0.08); border-color:var(--accent2); }
+  .info-block.teal  { background:rgba(45,212,191,0.08);  border-color:var(--accent4); }
+  .info-block.orange{ background:rgba(244,162,97,0.08);  border-color:var(--accent3); }
+  .info-block.red   { background:rgba(248,113,113,0.08); border-color:var(--accent5); }
+  .info-block strong { font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; display: block; margin-bottom: 6px; }
+  .info-block.blue strong  { color:var(--accent1); }
+  .info-block.purple strong{ color:var(--accent2); }
+  .info-block.teal strong  { color:var(--accent4); }
+  .info-block.orange strong{ color:var(--accent3); }
+  .info-block.red strong   { color:var(--accent5); }
+  .info-block p { font-size: 13px; color: var(--text-secondary); margin: 0; line-height: 1.7; }
+
+  /* ─── Quote block ─── */
+  .quote-block {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: var(--radius-md); padding: 20px 24px;
+    margin: 16px 0; position: relative;
+    font-family: var(--font-display); font-style: italic;
+    font-size: 15px; color: var(--text); line-height: 1.7;
+  }
+  .quote-block::before {
+    content: '"'; font-size: 60px; line-height: 0; position: absolute;
+    top: 30px; left: 16px; opacity: 0.15; font-family: var(--font-display);
+  }
+  .quote-block p { padding-left: 24px; }
+  .quote-attribution { font-size: 11px; color: var(--text-tertiary); font-style: normal; margin-top: 8px; padding-left: 24px; }
+
+  /* ─── Table ─── */
+  .table-wrap { overflow-x: auto; margin: 16px 0; border-radius: var(--radius-md); border: 1px solid var(--border); }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  thead { background: var(--surface); }
+  th { padding: 12px 16px; text-align: left; font-size: 11px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-secondary); border-bottom: 1px solid var(--border); }
+  td { padding: 12px 16px; border-bottom: 1px solid rgba(255,255,255,0.04); color: var(--text-secondary); line-height: 1.6; }
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: var(--surface); }
+
+  /* ─── Persons grid ─── */
+  .persons-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px,1fr)); gap: 12px; margin: 14px 0; }
+  .person-card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: var(--radius-md); padding: 14px 16px;
+    transition: all 0.2s ease;
+  }
+  .person-card:hover { border-color: var(--border-strong); background: var(--surface-hover); transform: translateY(-2px); }
+  .person-name { font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 3px; }
+  .person-role { font-size: 11px; color: var(--text-secondary); }
+  .person-note { font-size: 11px; color: var(--text-tertiary); margin-top: 6px; line-height: 1.5; }
+
+  /* ─── Divider ─── */
+  .divider { height: 1px; background: var(--border); margin: 24px 0; }
+
+  /* ─── Morality callout ─── */
+  .morality {
+    background: linear-gradient(135deg,rgba(110,142,251,0.10),rgba(167,119,227,0.08));
+    border: 1px solid rgba(110,142,251,0.25);
+    border-radius: var(--radius-md); padding: 18px 22px; margin: 16px 0;
+  }
+  .morality .label { font-size: 10px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent1); font-weight: 600; margin-bottom: 8px; }
+  .morality p { font-size: 14px; color: var(--text); font-style: italic; line-height: 1.7; font-family: var(--font-display); }
+
+  /* ─── Top bar ─── */
+  .topbar {
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(10,10,18,0.80);
+    backdrop-filter: blur(30px) saturate(160%);
+    -webkit-backdrop-filter: blur(30px) saturate(160%);
+    border-bottom: 1px solid var(--border);
+    padding: 14px 60px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .topbar-breadcrumb { font-size: 12px; color: var(--text-secondary); }
+  .topbar-breadcrumb span { color: var(--text); }
+  .topbar-actions { display: flex; gap: 8px; }
+  .topbar-btn {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 100px; padding: 6px 14px;
+    font-size: 12px; color: var(--text-secondary);
+    cursor: pointer; transition: all 0.2s;
+  }
+  .topbar-btn:hover { background: var(--surface-hover); color: var(--text); }
+
+  /* ─── Prog bar ─── */
+  .progress-bar {
+    position: fixed; top: 0; left: 0; right: 0; height: 2px;
+    background: linear-gradient(90deg,var(--accent1),var(--accent2),var(--accent4));
+    z-index: 200; transform-origin: left; transform: scaleX(0);
+    transition: transform 0.1s linear;
+  }
+
+  /* ─── Scrollbar ─── */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.12); border-radius: 3px; }
+  ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.22); }
+
+  /* ─── Mobile ─── */
+  @media (max-width: 900px) {
+    :root { --sidebar-w: 0px; }
+    .sidebar { transform: translateX(-100%); }
+    .main { margin-left: 0; }
+    .hero, .content { padding-left: 20px; padding-right: 20px; }
+    .topbar { padding-left: 20px; padding-right: 20px; }
+    .hero { padding-top: 40px; }
+  }
+
+  /* ─── Animations ─── */
+  .section-card { animation: fadeUp 0.5s ease both; }
+  @keyframes fadeUp {
+    from { opacity:0; transform:translateY(20px); }
+    to   { opacity:1; transform:translateY(0); }
+  }
+  .section-card:nth-child(1) { animation-delay:0.05s; }
+  .section-card:nth-child(2) { animation-delay:0.10s; }
+  .section-card:nth-child(3) { animation-delay:0.15s; }
+  .section-card:nth-child(4) { animation-delay:0.20s; }
+  .section-card:nth-child(5) { animation-delay:0.25s; }
+
+  /* color helpers per sequence */
+  .seq1 .section-num-badge { background:linear-gradient(135deg,rgba(110,142,251,0.25),rgba(167,119,227,0.20)); color:var(--accent1); }
+  .seq2 .section-num-badge { background:linear-gradient(135deg,rgba(244,162,97,0.25),rgba(248,113,113,0.15)); color:var(--accent3); }
+  .seq3 .section-num-badge { background:linear-gradient(135deg,rgba(45,212,191,0.25),rgba(110,142,251,0.15)); color:var(--accent4); }
+  .seq4 .section-num-badge { background:linear-gradient(135deg,rgba(167,119,227,0.25),rgba(248,113,113,0.15)); color:var(--accent2); }
+  .seq5 .section-num-badge { background:linear-gradient(135deg,rgba(248,113,113,0.25),rgba(244,162,97,0.15)); color:var(--accent5); }
+
+  .seq1 .section-header h2 { background:linear-gradient(90deg,#fff,#6e8efb); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
+  .seq2 .section-header h2 { background:linear-gradient(90deg,#fff,#f4a261); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
+  .seq3 .section-header h2 { background:linear-gradient(90deg,#fff,#2dd4bf); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
+  .seq4 .section-header h2 { background:linear-gradient(90deg,#fff,#a777e3); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
+  .seq5 .section-header h2 { background:linear-gradient(90deg,#fff,#f87171); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
+</style>
+</head>
+<body>
+
+<div class="progress-bar" id="progressBar"></div>
+<div class="bg-orbs">
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
+</div>
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-badge">📚 Lycée</div>
+    <h1>Cours de Français</h1>
+    <p>Littérature · Poésie · Théâtre</p>
+  </div>
+
+  <div class="nav-section">
+    <div class="nav-label">Séquences</div>
+
+    <a href="#seq1" class="nav-item active">
+      <div class="nav-icon">🐾</div>
+      <span>1 — La condition animale</span>
+      <span style="margin-left:auto;font-size:10px;opacity:.5">›</span>
+    </a>
+    <div class="nav-sub">
+      <a href="#seq1-images">Lecture d'images</a>
+      <a href="#seq1-hugo">Victor Hugo</a>
+      <a href="#seq1-orwell">G. Orwell</a>
+      <a href="#seq1-maupassant">Maupassant</a>
+      <a href="#seq1-zola-amour">Zola — L'Amour</a>
+      <a href="#seq1-ovide">Ovide</a>
+    </div>
+
+    <a href="#seq2" class="nav-item">
+      <div class="nav-icon">🚂</div>
+      <span>2 — La Bête Humaine</span>
+    </a>
+    <div class="nav-sub">
+      <a href="#seq2-intro">Introduction</a>
+      <a href="#seq2-incipit">Incipit</a>
+      <a href="#seq2-crime">Crime</a>
+      <a href="#seq2-lison">La Lison</a>
+    </div>
+
+    <a href="#seq3" class="nav-item">
+      <div class="nav-icon">🌍</div>
+      <span>3 — Utopie & Dystopie</span>
+    </a>
+    <div class="nav-sub">
+      <a href="#seq3-candide">Candide — Incipit</a>
+      <a href="#seq3-eldorado">Eldorado</a>
+      <a href="#seq3-surinam">Esclavage</a>
+    </div>
+
+    <a href="#seq4" class="nav-item">
+      <div class="nav-icon">🦊</div>
+      <span>4 — Fables de La Fontaine</span>
+    </a>
+    <div class="nav-sub">
+      <a href="#seq4-bio">Biographie</a>
+      <a href="#seq4-fables">Les Fables</a>
+      <a href="#seq4-analyse">Analyses</a>
+    </div>
+
+    <a href="#seq5" class="nav-item">
+      <div class="nav-icon">🎭</div>
+      <span>5 — L'École des Femmes</span>
+    </a>
+    <div class="nav-sub">
+      <a href="#seq5-bio">Molière</a>
+      <a href="#seq5-structure">Structure</a>
+    </div>
+  </div>
+</aside>
+
+<!-- MAIN -->
+<main class="main">
+
+  <!-- Topbar -->
+  <div class="topbar">
+    <div class="topbar-breadcrumb">Cours de Français — <span>5 Séquences</span></div>
+    <div class="topbar-actions">
+      <button class="topbar-btn" onclick="expandAll()">Tout ouvrir</button>
+      <button class="topbar-btn" onclick="collapseAll()">Tout fermer</button>
+    </div>
+  </div>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-tag">Cours complet · Français Littérature</div>
+    <h1>Littérature, Poésie & Théâtre</h1>
+    <p>Du réel au symbole, de la condition animale à l'utopie : un parcours littéraire du XVIIIe siècle au XXIe siècle à travers cinq séquences fondamentales.</p>
+    <div class="hero-stats">
+      <div class="stat"><div class="stat-num">5</div><div class="stat-label">Séquences</div></div>
+      <div class="stat"><div class="stat-num">12+</div><div class="stat-label">Textes analysés</div></div>
+      <div class="stat"><div class="stat-num">4</div><div class="stat-label">Siècles couverts</div></div>
+      <div class="stat"><div class="stat-num">8+</div><div class="stat-label">Auteurs étudiés</div></div>
+    </div>
+  </section>
+
+  <!-- Content -->
+  <div class="content">
+
+    <!-- ══════════════════════════════════════════════════ -->
+    <!--  SÉQUENCE 1                                        -->
+    <!-- ══════════════════════════════════════════════════ -->
+    <div class="section-card seq1" id="seq1">
+      <div class="section-header" onclick="toggleSection(this)">
+        <div class="section-num-badge">1</div>
+        <div class="section-header-text">
+          <h2>La condition animale</h2>
+          <div class="meta">Objet d'étude : La littérature d'idée et la presse — XIXe et XXIe siècle</div>
+        </div>
+        <div class="section-chevron">⌄</div>
+      </div>
+      <div class="section-body">
+        <div class="section-body-inner">
+
+          <div class="morality">
+            <div class="label">Problématique</div>
+            <p>Comment la condition animale fait-elle l'objet de dénonciation après avoir été idéalisée ?</p>
+          </div>
+
+          <!-- Lectures cursives -->
+          <div class="tag-row">
+            <span class="tag tag-blue">Lecture cursive</span>
+            <span class="tag tag-purple">Article de Lenoir (philosophe)</span>
+            <span class="tag tag-purple">Frans de Waal (primatologue)</span>
+            <span class="tag tag-teal">Psychologie Magazine, 2018</span>
+          </div>
+
+          <div class="divider" id="seq1-images"></div>
+
+          <!-- I. Tableaux -->
+          <div class="subsection">
+            <h3>I — Un tableau idyllique : Lecture d'images</h3>
+
+            <h4>Marie Leszczyńska — La Ferme (1753)</h4>
+            <p>Reine polyglotte et cultivée, épouse du roi Louis XV, Marie Leszczyńska s'adonne à la peinture. Elle réalise une copie fidèle du tableau de Jean-Baptiste Oudry : <em>La Ferme</em> (Château de Versailles).</p>
+            <div class="info-block blue">
+              <strong>Analyse</strong>
+              <p>L'ensemble dégage un sentiment de sérénité. Au premier plan, un chien saisit un canard sauvage — seule perturbation. Cette ferme constitue une représentation <em>idéalisée</em> de l'exploitation agricole : ovins, bovins, caprins coexistent harmonieusement. Évocation du jardin d'Eden.</p>
+            </div>
+
+            <h4>Paul Gauguin — Le Cheval Blanc (1898)</h4>
+            <p>Tableau non réaliste mais vision imaginaire d'un paysage tahitien sur le passage des âmes. La couleur blanche en Polynésie est liée à la mort et au culte des dieux. Derrière l'animal sacré, deux cavaliers nus s'éloignent — impression de sérénité.</p>
+            <div class="info-block teal">
+              <strong>Comparaison des deux œuvres</strong>
+              <p>Les relations entre humains et animaux sont plus <strong>fusionnelles</strong> chez Gauguin (animaux sauvages, libres, sans harnachement) et plus <strong>utilitaires</strong> chez Leszczyńska (animaux domestiqués, de trait). Le style de Leszczyńska : composition classique, plan large, tons réalistes. Chez Gauguin : composition resserrée, palette éloquente (vertes prairies, bleu profond, orangers).</p>
+            </div>
+          </div>
+
+          <div class="divider" id="seq1-hugo"></div>
+
+          <!-- II. Hugo -->
+          <div class="subsection">
+            <h3>II — Victor Hugo, <em>Mélancolia</em>, Les Contemplations (1856)</h3>
+            <div class="tag-row">
+              <span class="tag tag-orange">Registre pathétique</span>
+              <span class="tag tag-red">Dénonciation</span>
+              <span class="tag tag-blue">Manichéisme</span>
+            </div>
+            <p>La scène suscite pitié et indignation. Le narrateur prend le lecteur à témoin via l'interrogation des deux premiers vers. Deux protagonistes en opposition manichéenne : le bourreau «l'homme ivre» et la victime «la bête effarée».</p>
+            <div class="info-block purple">
+              <strong>Procédés littéraires</strong>
+              <p>Le mot «coups» est répété trois fois (v. 7-18), dont deux fois métaphoriquement et hyperboliquement : «Le roulier n'est plus qu'un orage de coups» ; «les coups furieux pleuvent». Le cheval est décrit de façon pathétique : «hagard, errant, estropié / baisse son cou lugubre». Il finit par tomber, «brisé», sous les brancards.</p>
+            </div>
+          </div>
+
+          <div class="divider"></div>
+
+          <!-- III. Enluminure -->
+          <div class="subsection">
+            <h3>III — Scène de la vie quotidienne</h3>
+            <p><em>Atelier S. Bening, Enluminure Flamande, 1520, Bruges</em></p>
+            <p>Représentation de l'égorgement du cochon au premier plan. Ce qui surprend : la <strong>banalisation</strong> de la scène parmi les activités quotidiennes du village (cuisson du pain, pétrissage). La souffrance se lit dans la gueule ouverte et l'œil mi-clos de l'animal.</p>
+          </div>
+
+          <div class="divider" id="seq1-orwell"></div>
+
+          <!-- IV. Orwell -->
+          <div class="subsection">
+            <h3>IV — George Orwell, <em>La Ferme des Animaux</em> (1945)</h3>
+            <div class="tag-row">
+              <span class="tag tag-red">Maltraitance</span>
+              <span class="tag tag-orange">Révolte</span>
+              <span class="tag tag-blue">Allégorie politique</span>
+            </div>
+            <p>Les animaux de M. Jones sont victimes de maltraitance : affamés («les mœurs de la faim»), ils reçoivent «une volée de coups». Le narrateur prend parti pour les animaux, présentant les hommes comme des bourreaux habitués à «les rosser qui mieux mieux».</p>
+            <div class="info-block orange">
+              <strong>Effet sur le lecteur</strong>
+              <p>La révolte est unanime et spontanée. Le lecteur est amené à sympathiser avec les animaux et à considérer leur soulèvement comme légitime face à la violence dont ils sont victimes.</p>
+            </div>
+          </div>
+
+          <div class="divider" id="seq1-maupassant"></div>
+
+          <!-- V. Maupassant -->
+          <div class="subsection">
+            <h3>V — Maupassant, <em>Histoire d'un chien</em></h3>
+            <div class="tag-row">
+              <span class="tag tag-blue">Réalisme</span>
+              <span class="tag tag-purple">Chute narrative</span>
+              <span class="tag tag-teal">SPA · XIXe siècle</span>
+            </div>
+
+            <div class="morality">
+              <div class="label">Problématique</div>
+              <p>Comment ce passage, qui constitue la chute de la nouvelle, dénonce-t-il le sort réservé aux chiens au XIXe siècle ?</p>
+            </div>
+
+            <h4>I — Une fin improbable</h4>
+            <p>François a noyé sa chienne Cocotte (plus-que-parfait : «il l'avait noyée fin avril»). Sa culpabilité le rend malade un mois entier. En retrouvant le cadavre par hasard, il est pris d'une «peur folle» qui le conduit à l'ivresse quotidienne. Quatre actions au passé simple : «il serra», «il se mit», «il marcha», «il demanda» — contraste avec l'arrière-plan à l'imparfait.</p>
+
+            <h4>II — La maltraitance animale : une banalité</h4>
+            <div class="info-block blue">
+              <strong>Lexique</strong>
+              <p>«effaré», «bouleversé» (participes épithètes) ; «miracle» et «apparition vengeresse» (métaphore surnaturelle). François est aussi victime : contraint par son maître, rongé de culpabilité, au bord de la folie.</p>
+            </div>
+            <div class="quote-block">
+              <p>…un hospice et un refuge où les pauvres chiens sans maître trouveraient nourriture et abri, au lieu d'une mort cruelle que leur réservait l'administration.</p>
+              <div class="quote-attribution">Conclusion de la nouvelle — Maupassant</div>
+            </div>
+            <p>Visée clairement énoncée : soutenir la création de la SPA. Réalisme naturaliste : François est inscrit dans son milieu social (cocher).</p>
+
+            <h4>III — Parallèle moderne</h4>
+            <p>Le spot «30 Millions d'Amis» repose sur un montage en <strong>chiasme</strong> : un homme ramène un chien, puis la même séquence inversée — il l'abandonne. Le fond noir précise : «Nous aurions aimé vous raconter cette histoire. Mais voici la réalité.»</p>
+          </div>
+
+          <div class="divider" id="seq1-zola-amour"></div>
+
+          <!-- VI. Zola -->
+          <div class="subsection">
+            <h3>VI — Émile Zola, <em>L'Amour des bêtes</em></h3>
+            <div class="tag-row">
+              <span class="tag tag-blue">Éditorial · Le Figaro</span>
+              <span class="tag tag-purple">Argumentation</span>
+              <span class="tag tag-teal">Naturalisme</span>
+            </div>
+
+            <div class="morality">
+              <div class="label">Problématique</div>
+              <p>Comment Zola parvient-il à partager l'émotion qu'il éprouve face à la souffrance des bêtes ?</p>
+            </div>
+
+            <h4>I — Une réflexion portée par l'interrogation</h4>
+            <p>Flux de questions récurrentes : stratégie de mise en demeure et <em>captatio benevolentiae</em>. Anaphore de «Pourquoi» (l. 1, 3, 6, 9, 12, 16). Le texte prend une tonalité méditative et existentielle. Les questions progressent : de «la rencontre d'un chien perdu» jusqu'à «la miséricorde» envers «toutes ces bêtes abandonnées».</p>
+
+            <h4>II — Sensibiliser le lecteur</h4>
+            <div class="info-block purple">
+              <strong>Registre pathétique</strong>
+              <p>Champ lexical de la misère : «chien perdu», «rue tumultueuses», «grelote au coin de quelques bornes». Métaphores humanisant les animaux : «créatures qui souffrent», «faibles, nécessités parents». Termes moraux et philosophiques : «miséricorde», «tolérance», «universel amour».</p>
+            </div>
+
+            <h4>III — Une argumentation organisée</h4>
+            <div class="table-wrap">
+              <table>
+                <thead><tr><th>Partie</th><th>Lignes</th><th>Stratégie</th></tr></thead>
+                <tbody>
+                  <tr><td><strong>Exorde</strong></td><td>1–16</td><td>Questions lancinantes (anaphore de «Pourquoi») — appel à la sensibilité</td></tr>
+                  <tr><td><strong>Développement</strong></td><td>17–37</td><td>Style hypotaxique, conditionnel, raisonnement — appel à la raison</td></tr>
+                  <tr><td><strong>Péroraison</strong></td><td>38–44</td><td>Retour à l'émotion, interrogations croissantes, montée en intensité</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <p>Le jeu pronominal : «je» (l. 1) → «nous» (l. 19) d'unanimité → «on» (l. 25) de réprobation. Anadiplose comme figure de liaison.</p>
+          </div>
+
+          <div class="divider" id="seq1-ovide"></div>
+
+          <!-- VII. Ovide -->
+          <div class="subsection">
+            <h3>VII — Ovide, <em>Métamorphoses</em> (Ier siècle av. J.-C.)</h3>
+            <div class="tag-row">
+              <span class="tag tag-orange">Prosopopée</span>
+              <span class="tag tag-red">Réquisitoire</span>
+              <span class="tag tag-purple">Pythagore</span>
+            </div>
+
+            <div class="morality">
+              <div class="label">Problématique</div>
+              <p>En quoi ce texte s'apparente-t-il à un réquisitoire ?</p>
+            </div>
+
+            <p>Ovide fait parler Pythagore (prosopopée). Le philosophe soutient que tout possède une âme : animaux humains et non humains, végétaux, minéraux.</p>
+
+            <h4>Un texte dissuasif</h4>
+            <p>Pronoms de 2e personne «vous» / «tu» (l. 13). Anaphore «vous avez» (l. 1-2-3). Interjection «Hélas» (l. 10). Questions rhétoriques (l. 12-16) mettant l'auditoire face à ses responsabilités.</p>
+
+            <h4>Un blâme</h4>
+            <div class="info-block red">
+              <strong>Dénonciation du régime carnivore</strong>
+              <p>Dès la première phrase, Pythagore accuse ses contemporains de «souiller leur corps d'un aliment abominable». Le régime carnivore constitue un «crime» (l. 10 et 20). «Appétit déréglé» — termes scientifiques pour présenter la viande comme un dérèglement psychologique. Lexique de la souillure et de l'impureté.</p>
+            </div>
+
+            <div class="morality">
+              <div class="label">Thèse</div>
+              <p>Manger de la chair animale est contraire à la nature et moralement mauvais, car les animaux possèdent une âme et font partie du même ordre que les humains.</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════════ -->
+    <!--  SÉQUENCE 2                                        -->
+    <!-- ══════════════════════════════════════════════════ -->
+    <div class="section-card seq2" id="seq2">
+      <div class="section-header" onclick="toggleSection(this)">
+        <div class="section-num-badge">2</div>
+        <div class="section-header-text">
+          <h2>Du réel au symbole — La Bête Humaine</h2>
+          <div class="meta">Objet d'étude : Le roman et le récit du XVIIIe au XIXe siècle · Émile Zola, 1890</div>
+        </div>
+        <div class="section-chevron">⌄</div>
+      </div>
+      <div class="section-body">
+        <div class="section-body-inner">
+
+          <!-- Intro -->
+          <div class="subsection" id="seq2-intro">
+            <h3>Introduction — Le roman et son contexte</h3>
+            <div class="tag-row">
+              <span class="tag tag-orange">17e volume des Rougon-Macquart</span>
+              <span class="tag tag-red">1890</span>
+              <span class="tag tag-blue">Roman noir · ancêtre du thriller</span>
+            </div>
+            <p>Paru en 1890, <em>La Bête Humaine</em> est le 17e volume des Rougon-Macquart sur 20. L'histoire se déroule dans les années 1870 et reflète l'aspiration au progrès du XIXe siècle ainsi que les craintes qu'il engendre. Il montre le climat de contestation de la fin du Second Empire et la corruption judiciaire.</p>
+            <div class="info-block orange">
+              <strong>Influences scientifiques</strong>
+              <p>Zola s'inspire de Prosper Lucas (hérédité) et de Cesare Lombroso (<em>L'Homme Criminel</em>, 1876) sur la <strong>détermination atavique</strong>. Le premier titre envisagé : <em>Retour Atavique</em>. Question centrale : «D'où vient en l'homme des pulsions du crime ?»</p>
+            </div>
+
+            <h4>Chemin de fer — données historiques</h4>
+            <p>En 1858 : 8 675 km de voies ferrées construites, 20 000 km après le règne de Napoléon III. En 1860 : 80 locomotives par an. Six grandes compagnies : Est, Nord, Ouest, Midi, PLM, Orléans.</p>
+          </div>
+
+          <!-- Personnages -->
+          <div class="subsection">
+            <h3>Les personnages — Un roman triple</h3>
+            <p>Zola se fixe trois objectifs dans l'ébauche préparatoire : «l'étude de l'hérédité du crime ; l'étude de la magistrature avec l'instruction ; l'administration du chemin de fer.»</p>
+
+            <h4>Justice</h4>
+            <div class="persons-grid">
+              <div class="person-card"><div class="person-name">Président Grandmorin</div><div class="person-role">Ancien magistrat</div><div class="person-note">p. 47</div></div>
+              <div class="person-card"><div class="person-name">M. Denizet</div><div class="person-role">Juge d'instruction</div><div class="person-note">p. 128</div></div>
+              <div class="person-card"><div class="person-name">M. Camy-Lamotte</div><div class="person-role">Secrétaire général</div><div class="person-note">p. 129</div></div>
+            </div>
+
+            <h4>Chemin de fer</h4>
+            <div class="persons-grid">
+              <div class="person-card"><div class="person-name">Roubaud</div><div class="person-role">Sous-Chef de gare du Havre</div></div>
+              <div class="person-card"><div class="person-name">Jacques Lantier</div><div class="person-role">Mécanicien</div></div>
+              <div class="person-card"><div class="person-name">Pecqueux</div><div class="person-role">Chauffeur</div></div>
+              <div class="person-card"><div class="person-name">Misard</div><div class="person-role">Aiguilleur</div></div>
+              <div class="person-card"><div class="person-name">Flore</div><div class="person-role">Garde-barrière</div></div>
+              <div class="person-card"><div class="person-name">La Lison</div><div class="person-role">Locomotive (humanisée)</div></div>
+            </div>
+
+            <h4>Crimes</h4>
+            <div class="table-wrap">
+              <table>
+                <thead><tr><th>Pages</th><th>Coupable(s)</th><th>Victime(s)</th><th>Circonstances</th></tr></thead>
+                <tbody>
+                  <tr><td>p. 82–88</td><td>Grandmorin</td><td>Louisette, Séverine</td><td>Tentative de viol</td></tr>
+                  <tr><td>p. 97</td><td>Séverine & Roubaud</td><td>Grandmorin</td><td>Vengeance du viol</td></tr>
+                  <tr><td>p. 240–308</td><td>Misard</td><td>Tante Phasie</td><td>Empoisonnement (héritage)</td></tr>
+                  <tr><td>p. 321</td><td>Flore</td><td>Passagers, chevaux, La Lison</td><td>Vengeance amoureuse — déraillement</td></tr>
+                  <tr><td>p. 363</td><td>Jacques Lantier</td><td>Séverine</td><td>Pulsions meurtrières</td></tr>
+                  <tr><td>p. 397</td><td>Pecqueux vs Jacques</td><td>L'un l'autre + soldats</td><td>Rivalité amoureuse — combat sur la locomotive</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Incipit -->
+          <div class="subsection" id="seq2-incipit">
+            <h3>Chapitre 1 — L'Incipit</h3>
+            <div class="morality">
+              <div class="label">Problématique</div>
+              <p>Comment cet incipit introduit-il le lecteur dans ce roman naturaliste et avec quel pacte de lecture ?</p>
+            </div>
+
+            <h4>I — Entrée dans le roman</h4>
+            <p>L'entrée abrupte de Roubaud dans la chambre correspond à l'entrée dans le roman. Roubaud ouvre une porte et une fenêtre pour faire voir Paris. Description construite en alternance gauche-droite («gauche» l. 17, «droite» l. 22) avec élargissement du champ de vision comme des rails «en éventail».</p>
+            <p>Présentation du personnage : nom et emploi. «Le sous-chef de gare» (l. 5) → Compagnie de l'Ouest (l. 8). Effets de réel : «quartier de l'Europe», «Impasse d'Amsterdam», «Tunnel des Batignolles» — toponymes réels.</p>
+
+            <h4>II — Un réalisme ambigu</h4>
+            <div class="info-block blue">
+              <strong>Subjectivité du narrateur</strong>
+              <p>Les métaphores (l. 15, 26, 27), la volonté de grandissement («géant» l. 18) et la dimension picturale — voire impressionniste — sont à mettre sur le compte du narrateur. La dernière phrase évoque «l'effacement confus des wagons» jusqu'à «un grand signal rouge tâchant du jour pâle» — cf. Monet, <em>La Gare Saint-Lazare</em>.</p>
+            </div>
+          </div>
+
+          <!-- Crime -->
+          <div class="subsection" id="seq2-crime">
+            <h3>Chapitre 2 — La fêlure héréditaire</h3>
+            <div class="tag-row">
+              <span class="tag tag-red">Atavisme</span>
+              <span class="tag tag-orange">Monologue intérieur</span>
+              <span class="tag tag-purple">Discours indirect libre</span>
+            </div>
+            <p>Le discours indirect libre donne accès au déchirement intérieur de Jacques Lantier. Les phrases exclamatives, interrogatives, les apostrophes «mon dieu» marquent le dilemme face aux pulsions destructrices.</p>
+            <div class="info-block red">
+              <strong>Hérédité</strong>
+              <p>«les générations d'ivrognes dont il était le sang gâté» — l'alcool comme cause de la fêlure. L'imparfait «devait coûter à Gervaise tant de larmes» : Zola abandonne le romancier pour le théoricien. Métaphore animale : «une sauvagerie qui le ramenait au loup mangeur de femme».</p>
+            </div>
+            <p>Répétitions obsédantes : «cette fille, cette fille qui l'avait voulu tuer» ; «tué une femme, tué une femme». Défilé de femmes envisagées comme victimes potentielles. Accumulation d'adjectifs : «cette chair, cette gorge chaude et blanche».</p>
+          </div>
+
+          <!-- La Lison -->
+          <div class="subsection" id="seq2-lison">
+            <h3>Chapitre X — La mort de la Lison</h3>
+            <div class="tag-row">
+              <span class="tag tag-blue">Personnification</span>
+              <span class="tag tag-teal">Registre épique</span>
+              <span class="tag tag-purple">Allégorie</span>
+            </div>
+
+            <div class="morality">
+              <div class="label">La Lison</div>
+              <p>Deux champs lexicaux cohabitent : la mécanique/technique et le biologique/vivant. La mort de la machine est décrite en termes humains — «fin tragique d'une bête de luxe qu'un accident foudroie».</p>
+            </div>
+
+            <div class="info-block teal">
+              <strong>Procédés épiques</strong>
+              <p>«Un instant, on avait pu voir, par ses entrailles crevées, fonctionner ses organes, les pistons battre comme deux cœurs jumeaux, les bras convulsifs…» — rythme ternaire de cadence croissante. «La maladie contractée dans la neige» désigne la cause de la défaillance. Imparfaits et infinitifs ralentissent la narration pour le temps solennel de l'agonie.</p>
+            </div>
+
+            <h4>Comparaison Incipit / Excipit</h4>
+            <div class="table-wrap">
+              <table>
+                <thead><tr><th></th><th>Incipit</th><th>Excipit</th></tr></thead>
+                <tbody>
+                  <tr><td><strong>Temps verbaux</strong></td><td>Imparfait + passé simple descriptif</td><td>Imparfait narratif suspendu — narration ouverte</td></tr>
+                  <tr><td><strong>Focalisation</strong></td><td>Interne — Roubaud observe les trains (objets réalistes)</td><td>Externe — «la machine lancée à pleine vitesse» domine</td></tr>
+                  <tr><td><strong>Le train</strong></td><td>Dénotatif, technique, précis («train de 3h25 pour Caen»)</td><td>Allégorique, «monstre échappé» — connotation</td></tr>
+                  <tr><td><strong>Portée</strong></td><td>Réalisme naturaliste</td><td>Allégorie du progrès aveugle et de la défaite de 1870</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════════ -->
+    <!--  SÉQUENCE 3                                        -->
+    <!-- ══════════════════════════════════════════════════ -->
+    <div class="section-card seq3" id="seq3">
+      <div class="section-header" onclick="toggleSection(this)">
+        <div class="section-num-badge">3</div>
+        <div class="section-header-text">
+          <h2>Utopie & Dystopie dans le récit</h2>
+          <div class="meta">Objet d'étude : Le roman et le récit du XVIIIe au XXIe siècle · Voltaire, <em>Candide</em> (1759)</div>
+        </div>
+        <div class="section-chevron">⌄</div>
+      </div>
+      <div class="section-body">
+        <div class="section-body-inner">
+
+          <div class="tag-row">
+            <span class="tag tag-teal">Lecture cursive : 1984 — G. Orwell (1949)</span>
+          </div>
+          <div class="morality">
+            <div class="label">Problématique</div>
+            <p>Fonction et Fonctionnement de l'Utopie et de la Dystopie.</p>
+          </div>
+
+          <!-- Candide incipit -->
+          <div class="subsection" id="seq3-candide">
+            <h3>Lecture analytique — Incipit de <em>Candide</em></h3>
+
+            <h4>I — La parodie du conte</h4>
+            <p>La formule initiale «il y avait en Westphalie» évoque le conte traditionnel. La Westphalie (Allemagne de Leibniz) est aussi la province la plus pauvre d'Allemagne — Eden fondateur ironique.</p>
+            <div class="info-block teal">
+              <strong>Les personnages types</strong>
+              <p>Le <strong>baron de Thunder-Ten-Tronk</strong> (allitération en [T], «Thunder» = tonnerre — onomastique emphatique) ; la baronne (350 livres = 170 kg) ; Cunégonde (rôle majeur — présentée avant le fils) ; le fils (simple copie du baron) ; <strong>Pangloss</strong> (du grec : «tout-langage», spécialiste de rien).</p>
+            </div>
+
+            <h4>II — Pangloss, mentor «nigologue»</h4>
+            <p>Pangloss inverse les relations logiques causes/conséquences : «les nez ont été faits pour porter des lunettes, ainsi avons-nous des lunettes». Liens logiques feints : «car», «pour», «aussi». Ton assertif : «il est démontré», «nécessairement». Il parle pour ne rien dire — étymologiquement «celui qui est tout entier dans la parole».</p>
+            <div class="info-block purple">
+              <strong>Satire de Leibniz</strong>
+              <p>Leibniz affirme que Dieu, étant bon, a créé le meilleur des mondes possibles. Voltaire biaiser cette thèse via Pangloss et le jargon parodique : «métaphysico-théologo-cosMO-lonigologie».</p>
+            </div>
+
+            <h4>III — La candeur de Candide</h4>
+            <p>Onomastique : «Candide» = blanc, naïf (latin). Il boit les paroles de Pangloss «avec toute la bonne foi de son âge et de son caractère». Focalisation interne : Candide «écoutait, trouvait...» — décalage ironique entre réalité et perception. Superlatifs et hyperboles : «les mœurs les plus douces», «71 quartiers», «le meilleur des mondes possibles».</p>
+          </div>
+
+          <!-- Eldorado -->
+          <div class="subsection" id="seq3-eldorado">
+            <h3>Chapitre XVII — L'Eldorado</h3>
+            <div class="tag-row">
+              <span class="tag tag-teal">Utopie</span>
+              <span class="tag tag-blue">Exotisme</span>
+              <span class="tag tag-orange">Lumières</span>
+            </div>
+
+            <p>Arrivée par une grotte (cf. 6e voyage de Sinbad dans les <em>1001 Nuits</em>). L'Eldorado est une utopie au sens strict (Thomas More, XVIe s.) — monde parfait qui n'existe nulle part.</p>
+
+            <h4>I — Un monde merveilleux</h4>
+            <p>«20 belles filles de la garde», «tissu de duvet de colibri», «1 000 musiciens». Ville : «édifices élevés jusqu'aux nues», «fontaines d'eau pure», «fontaines d'eau rose», «liqueur de canne à sucre». Absence de tribunal — la paix règne. Palais des Sciences.</p>
+
+            <h4>II — Miroir inversé des sociétés européennes</h4>
+            <div class="info-block blue">
+              <strong>Égalitarisme</strong>
+              <p>Le roi les reçoit avec simplicité. Voltaire ironise sur les rituels européens : «lécher la poussière de la salle». Égalité homme-femme : «vingt belles filles de la garde». Le lexique de la surprise est mis en valeur : «ce qui le surprit davantage», polyptote de l'étonnement.</p>
+            </div>
+
+            <div class="quote-block">
+              <p>Si nous restons ici, nous serons comme tout le monde.</p>
+              <div class="quote-attribution">Candide — vanité des personnages, ch. XVII</div>
+            </div>
+          </div>
+
+          <!-- Surinam -->
+          <div class="subsection" id="seq3-surinam">
+            <h3>Chapitre XIX — L'esclavage à Surinam</h3>
+            <div class="tag-row">
+              <span class="tag tag-red">Réquisitoire</span>
+              <span class="tag tag-orange">Commerce triangulaire</span>
+              <span class="tag tag-purple">Code Noir 1685</span>
+            </div>
+
+            <h4>I — Une mise en scène percutante</h4>
+            <p>Surinam, capitale de la Guyane (riche en canne à sucre). L'esclave est triplement démuni : à terre, mutilé d'une main et d'une jambe. La mère africaine naïve et cynique. Le maître s'appelle Vanderdendur (onomastique de cruauté). Allusion au commerce triangulaire.</p>
+
+            <h4>II — Le discours sobre de l'esclave</h4>
+            <div class="info-block red">
+              <strong>Dénonciation des syllogismes</strong>
+              <p>Les colonisateurs apprennent aux esclaves qu'ils descendent d'Adam (donc égaux) — mais les vendent comme objets. Voltaire expose l'incohérence par syllogismes. L'esclave expose logiquement avec «or, mais». Formule percutante : «c'est à ce prix que vous mangez du sucre en Europe».</p>
+            </div>
+
+            <h4>III — Identification et émotion</h4>
+            <p>De la pitié («Eh, mon Dieu», «état horrible», «hélas») à l'indignation («abomination»). Hyperbole «1 000 fois». Candide pleure deux fois — refus de l'optimisme. Double cible : le commerce triangulaire et le système philosophique qui justifie de tels scandales.</p>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════════ -->
+    <!--  SÉQUENCE 4                                        -->
+    <!-- ══════════════════════════════════════════════════ -->
+    <div class="section-card seq4" id="seq4">
+      <div class="section-header" onclick="toggleSection(this)">
+        <div class="section-num-badge">4</div>
+        <div class="section-header-text">
+          <h2>La poétique de la fable — Jean de La Fontaine</h2>
+          <div class="meta">Objet d'étude : La Poésie du Moyen Âge au XVIIIe siècle · Fables, Livres VII à XII</div>
+        </div>
+        <div class="section-chevron">⌄</div>
+      </div>
+      <div class="section-body">
+        <div class="section-body-inner">
+
+          <div class="morality">
+            <div class="label">Problématique</div>
+            <p>La poésie satirique et encomiastique.</p>
+          </div>
+
+          <!-- Bio -->
+          <div class="subsection" id="seq4-bio">
+            <h3>Biographie — Jean de La Fontaine (1621–1695)</h3>
+            <div class="tag-row">
+              <span class="tag tag-purple">Garde-forestier en héritage</span>
+              <span class="tag tag-blue">Protection de Fouquet</span>
+              <span class="tag tag-teal">Académie française 1684</span>
+            </div>
+            <p>Fils d'un maître des Eaux et Forêts, il hérite de la charge de son père en Province. En 1658 il se lance dans la littérature, présente le poème <em>Adonis</em> à Nicolas Fouquet (surintendant de Louis XIV) et obtient une pension au Château de Vaux-le-Vicomte.</p>
+            <p>En 1661, Fouquet est arrêté sur ordre de Louis XIV. La Fontaine cherche de nouveaux protecteurs : la Duchesse d'Orléans («Madame»), puis Mme de La Sablière (20 ans de protection). Il entre à l'Académie française en 1684 après de longues années d'attente.</p>
+
+            <h4>Les trois recueils</h4>
+            <div class="table-wrap">
+              <table>
+                <thead><tr><th>Recueil</th><th>Destinataire</th><th>Caractéristiques</th></tr></thead>
+                <tbody>
+                  <tr><td><strong>1er (1668)</strong></td><td>Dauphin, 8 ans</td><td>Instruction morale, «instruire et plaire», morale claire, Ésope</td></tr>
+                  <tr><td><strong>2e</strong></td><td>Dauphin, 15 ans</td><td>Plus complexe, dialogues étendus, moralité double ou triple</td></tr>
+                  <tr><td><strong>3e (Livre XII)</strong></td><td>Duc de Bourgogne</td><td>Vision philosophique, sujets abstraits, invention dans la manière</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Fables -->
+          <div class="subsection" id="seq4-fables">
+            <h3>L'art de la fable — Fonctions</h3>
+            <div class="info-block purple">
+              <strong>Définition de l'apologue</strong>
+              <p>«L'apologue est composé de deux parties, dont on peut appeler l'une le corps et l'autre l'âme. Le corps est la fable, l'âme est la moralité.» — Hybridation générique : récit + argumentation.</p>
+            </div>
+            <p>La fable est une métaphore de la réalité humaine. Sources : Ésope, sagesse antique, Descartes (<em>Discours de Mme de La Sablière</em>), La Rochefoucauld. Mais La Fontaine refuse la simple imitation.</p>
+          </div>
+
+          <!-- Analyses -->
+          <div class="subsection" id="seq4-analyse">
+            <h3>Analyses — Fables clés</h3>
+
+            <h4>«Les Deux Coqs» — VII-12</h4>
+            <div class="tag-row">
+              <span class="tag tag-orange">Parodie épique</span>
+              <span class="tag tag-blue">Héroï-comique</span>
+              <span class="tag tag-purple">Fortune</span>
+            </div>
+            <p>Épopée de basse-cour en trois actes : altercation → retraite du vaincu → revers de fortune. Le passé simple rompt l'équilibre de l'imparfait. Références à Troie, Hélène, Xanthe — métonymie et synecdoque. Changements métriques symétriques (12/8/12/8) — effet héroï-comique.</p>
+            <div class="morality">
+              <div class="label">Moralité</div>
+              <p>La fortune préside à un mouvement de retournement perpétuel — mise en garde contre l'amour plutôt que contre l'orgueil. Fin ouverte, subversion du genre.</p>
+            </div>
+
+            <div class="divider"></div>
+
+            <h4>«Le Rat et l'Huître» — VII-9</h4>
+            <div class="tag-row">
+              <span class="tag tag-teal">Libido sciendi</span>
+              <span class="tag tag-red">Anti-héros</span>
+              <span class="tag tag-blue">Polysémie</span>
+            </div>
+            <p>Le rat «de peu de cervelle» part à l'aventure («À nous deux le monde !»). Asyndète imitant le trottinement. La Fontaine démystifie la parole prétentieuse (taupinière = Apennins ou Caucase). «Maître Rat» s'aventure devant une huître béante, croit à une richesse et se fait piéger — mort suggérée par le rejet du vers 37.</p>
+            <div class="morality">
+              <div class="label">Moralité plurielle</div>
+              <p>Céder à la gourmandise ; les livres ne préparent pas à la vie ; la littérature n'est pas la réalité. Remise en question de la fonction didactique de la littérature — «L'huître fait la fable. La perle fait la moralité.»</p>
+            </div>
+
+            <div class="divider"></div>
+
+            <h4>«Le Vieux Chat et La Jeune Souris» — XII-5</h4>
+            <div class="tag-row">
+              <span class="tag tag-purple">Rondeau</span>
+              <span class="tag tag-orange">Courtisanerie ironique</span>
+              <span class="tag tag-blue">Mise en abyme</span>
+            </div>
+            <p>La fable et son rondeau forment une paire responsive. Le rondeau (dédié au duc de Bourgogne) inverse progressivement les rôles : chat = duc, souris = poète → puis inversion finale chat = La Fontaine, souris = le prince. Jeu de pouvoir et de séduction par le verbe. La soumission du fabuliste est feinte.</p>
+            <div class="info-block purple">
+              <strong>Structure de la fable</strong>
+              <p>In medias res : la souris plaide sa cause face au chat. Plaidoyer en octosyllabes (souffle raccourci, simulacre d'éloquence). Le chat répond par une morale arbitraire. La moralité est immorale et menaçante — inversion totale du genre.</p>
+            </div>
+
+            <div class="divider"></div>
+
+            <h4>«Discours à Mme de La Sablière» — IX-19</h4>
+            <div class="tag-row">
+              <span class="tag tag-teal">Philosophie</span>
+              <span class="tag tag-blue">Contre Descartes</span>
+              <span class="tag tag-orange">Animaux-machines</span>
+            </div>
+            <p>La Fontaine expose et réfute la thèse cartésienne des «animaux-machines» (comparés à des montres). Il la mine par l'humour : stychomythie à quatre voix (La Fontaine, Mme de La Sablière, les Cartésiens, Descartes lui-même). Parodie du <em>cogito ergo sum</em>.</p>
+            <div class="info-block teal">
+              <strong>Trois contre-exemples</strong>
+              <p><strong>Le Cerf</strong> : ruse et raisonnement pour son propre salut. <strong>La Perdrix</strong> : astuces et dévouement pour ses petits. <strong>Les Castors</strong> : entraide et organisation sociale complexe. Gradation démontrant la pensée animale.</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════════ -->
+    <!--  SÉQUENCE 5                                        -->
+    <!-- ══════════════════════════════════════════════════ -->
+    <div class="section-card seq5" id="seq5">
+      <div class="section-header" onclick="toggleSection(this)">
+        <div class="section-num-badge">5</div>
+        <div class="section-header-text">
+          <h2>L'amour comme force émancipatrice</h2>
+          <div class="meta">Objet d'étude : Le théâtre du XVIIe au XXIe siècle · Molière, <em>L'École des Femmes</em></div>
+        </div>
+        <div class="section-chevron">⌄</div>
+      </div>
+      <div class="section-body">
+        <div class="section-body-inner">
+
+          <div class="morality">
+            <div class="label">Problématique</div>
+            <p>Une comédie classique ?</p>
+          </div>
+
+          <!-- Bio Molière -->
+          <div class="subsection" id="seq5-bio">
+            <h3>Biographie — Molière (1622–1673)</h3>
+            <div class="tag-row">
+              <span class="tag tag-red">Jean-Baptiste Poquelin</span>
+              <span class="tag tag-orange">L'Illustre Théâtre</span>
+              <span class="tag tag-blue">Protection du frère du roi</span>
+            </div>
+            <p>Fils du tapissier du roi. Fonde «L'Illustre Théâtre» avec Madeleine Béjart. Part en tournée en province, y apprend le métier. En 1658, monte à Paris — d'abord tragédies de Corneille puis farces devant Louis XIV. Obtient le théâtre du «Petit Bourbon». Triomphe en 1659 avec <em>Les Précieuses Ridicules</em>.</p>
+            <p>En 1662, épouse Armande Béjart (20 ans, fille de Madeleine). Crée 21 pièces jusqu'à sa mort sur scène. Rivalité avec l'Hôtel de Bourgogne. Meurt après un malaise sur scène — sans tombe chrétienne.</p>
+            <div class="info-block red">
+              <strong>L'École des Femmes (1662)</strong>
+              <p>Marque l'avènement de la grande comédie classique, rivalisant avec la tragédie. Polémiques politiques, religieuses, littéraires. Réponse : <em>La Critique de l'École des Femmes</em> et <em>L'Impromptu de Versailles</em>.</p>
+            </div>
+          </div>
+
+          <!-- Structure -->
+          <div class="subsection" id="seq5-structure">
+            <h3>Structure de la pièce</h3>
+            <div class="table-wrap">
+              <table>
+                <thead><tr><th>Acte</th><th>Scènes</th><th>Vers</th><th>Vitesse</th><th>Contenu</th></tr></thead>
+                <tbody>
+                  <tr><td><strong>I</strong></td><td>4</td><td>370</td><td>Lent (99,5 v/scène)</td><td>Tirades d'exposition — nœud dramatique et personnages</td></tr>
+                  <tr><td><strong>II</strong></td><td>5</td><td>370</td><td>Rapide (54,2 v/scène)</td><td>Bref, principe de compensation — Zola pense aux spectateurs</td></tr>
+                  <tr><td><strong>III</strong></td><td>5</td><td>271</td><td>Lent (72,8 v/scène)</td><td>Tirades d'Arnolphe + Maximes du mariage + pierre avec le mot</td></tr>
+                  <tr><td><strong>IV</strong></td><td>9</td><td>343</td><td>Rapide (38,1 v/scène)</td><td>Accélération de l'intrigue</td></tr>
+                  <tr><td><strong>V</strong></td><td>9</td><td>427</td><td>Rapide (37,5 v/scène)</td><td>Dénouement</td></tr>
+                </tbody>
+              </table>
+            </div>
+
+            <h4>Présence des personnages</h4>
+            <div class="persons-grid">
+              <div class="person-card">
+                <div class="person-name">Arnolphe</div>
+                <div class="person-role">31 scènes sur 32</div>
+                <div class="person-note">7 monologues. Seul personnage à monologuer. Présent dans tous les actes.</div>
+              </div>
+              <div class="person-card">
+                <div class="person-name">Agnès</div>
+                <div class="person-role">9 scènes</div>
+                <div class="person-note">Absente à l'acte IV. Muette à l'acte III. Trois grandes scènes clés.</div>
+              </div>
+              <div class="person-card">
+                <div class="person-name">Horace</div>
+                <div class="person-role">9 scènes</div>
+                <div class="person-note">Personnage le plus bavard après Arnolphe.</div>
+              </div>
+              <div class="person-card">
+                <div class="person-name">Chrysalde</div>
+                <div class="person-role">5 scènes</div>
+                <div class="person-note">Apparaît aux actes 1, 4 et 5.</div>
+              </div>
+              <div class="person-card">
+                <div class="person-name">Alain & Georgette</div>
+                <div class="person-role">Rôle de farce</div>
+                <div class="person-note">Scènes de transition très brèves.</div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /content -->
+</main>
+
+<script>
+  // Toggle section
+  function toggleSection(header) {
+    const card = header.closest('.section-card');
+    card.classList.toggle('open');
+  }
+
+  // Open/close all
+  function expandAll() {
+    document.querySelectorAll('.section-card').forEach(c => c.classList.add('open'));
+  }
+  function collapseAll() {
+    document.querySelectorAll('.section-card').forEach(c => c.classList.remove('open'));
+  }
+
+  // Open first by default
+  document.querySelector('.section-card').classList.add('open');
+
+  // Progress bar
+  const bar = document.getElementById('progressBar');
+  window.addEventListener('scroll', () => {
+    const scrolled = window.scrollY;
+    const total = document.documentElement.scrollHeight - window.innerHeight;
+    bar.style.transform = `scaleX(${scrolled / total})`;
+  });
+
+  // Active nav on scroll
+  const navItems = document.querySelectorAll('.nav-item');
+  const sections = document.querySelectorAll('.section-card[id]');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        navItems.forEach(n => n.classList.remove('active'));
+        const active = document.querySelector(`.nav-item[href="#${entry.target.id}"]`);
+        if (active) active.classList.add('active');
+      }
+    });
+  }, { threshold: 0.2 });
+  sections.forEach(s => observer.observe(s));
+</script>
+</body>
+</html>
